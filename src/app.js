@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import { config } from 'dotenv';
 import bodyparser from 'body-parser';
 import mongoose from 'mongoose';
+import routes from './v1/routes/index';
 
 config();
 const app = express();
@@ -23,7 +24,7 @@ app.use(bodyparser.urlencoded({ extended: true }));
 app.get('/', (req, res) => res.send('Welcome to interview Tutorial API, go through documentation to find endpoints for your request'));
 
 // Set up routes for v1
-// app.use('/api/v1/', routes);
+app.use('/api/v1/', routes);
 
 // set up route for swagger documentation
 // app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
