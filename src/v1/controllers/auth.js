@@ -49,7 +49,7 @@ export default class AuthController {
         } else {
           token = await jwt.sign({
             id: user.id, name: user.name, _id: user.id, email: user.email,
-          }, `${process.env.jwt_secret}`, { expiresIn: '2h' });
+          }, `${process.env.jwt_secret}`, { expiresIn: '2d' });
         }
       }
       return res.status(200).json({
