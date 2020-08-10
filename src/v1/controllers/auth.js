@@ -9,6 +9,7 @@ export default class AuthController {
       const user = await User.findOne({ email: req.body.email });
       if (user) {
         return res.status(400).json({
+          status: 'error',
           emailError: 'This email is already registered in our system',
         });
       }
