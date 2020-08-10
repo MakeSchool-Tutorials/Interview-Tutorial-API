@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-// import jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 import User from '../models/User';
 
@@ -21,6 +21,41 @@ export default class AuthController {
         success: true,
         data: {
           savedUser,
+        },
+      });
+    } catch (error) {
+      return res.status(error.statusCode || 500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  }
+
+  static async signin(req, res) {
+    try {
+      let token;
+      const user = await User.findOne({ email: req.body.email });
+      if (!user) {
+        return res.status(401).json({
+          success: false,
+          message: 'No user found! Signup to continue',
+        });
+      } if (user) {
+        if (!user.comparePassword(req.body.password, user.hashPassword)) {
+          res.status(401).json({
+            success: false,
+            message: 'Authentication failed. Wrong password!',
+          });
+        } else {
+          token = await jwt.sign({
+            id: user.id, name: user.name, _id: user.id, email: user.email,
+          }, `${process.env.jwt_secret}`, { expiresIn: '2h' });
+        }
+      }
+      return res.status(200).json({
+        success: true,
+        data: {
+          token,
         },
       });
     } catch (error) {

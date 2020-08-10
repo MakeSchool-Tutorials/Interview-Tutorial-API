@@ -1,4 +1,6 @@
 /* eslint-disable consistent-return */
+import jwt from 'jsonwebtoken';
+
 class ValidationMiddleware {
   static validateEmail(req, res, next) {
     const { email } = req.body;
@@ -20,6 +22,26 @@ class ValidationMiddleware {
         message: error.message,
       });
     }
+  }
+
+  static async validateToken(req, res, next) {
+    let isTokenValid;
+    if (!req.headers.token) {
+      return res.status(400).json({
+        status: 'error',
+        error: 'This endpoint is protected. Attach an authentication token to request header',
+      });
+    }
+    try {
+      isTokenValid = await jwt.verify(req.headers.token, `${process.env.jwt_secret}`);
+    } catch (error) {
+      return res.status(400).json({
+        status: 'error',
+        error: 'Invalid authentication token',
+      });
+    }
+    req.user = isTokenValid;
+    return next();
   }
 }
 

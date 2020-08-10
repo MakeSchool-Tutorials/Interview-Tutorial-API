@@ -25,6 +25,19 @@ class ValidateSchema {
 
     return next();
   }
+
+  validateSignInSchema(req, res, next) {
+    // check for validation errors
+    const validationError = ValidateSchema.checkForValidationError(req);
+    if (validationError) {
+      return res.status(400).json({
+        status: 'error',
+        error: validationError,
+      });
+    }
+
+    return next();
+  }
 }
 
 export default ValidateSchema;
