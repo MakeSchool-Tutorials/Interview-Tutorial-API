@@ -10,7 +10,7 @@ const QuestionSchema = new Schema({
     required: true,
   },
   postedBy: {
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: 'user',
     required: true,
   },
@@ -20,19 +20,12 @@ const QuestionSchema = new Schema({
   },
   description: {
     type: String,
-    required: true,
   },
   jobRole: {
     type: String,
     required: true,
   },
-  tags: [
-    {
-      tagTitle: {
-        type: String,
-      },
-    },
-  ],
+  tags: [String],
   createdAt: {
     type: Date,
     default: Date.now,

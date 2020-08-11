@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
@@ -6,6 +7,7 @@ import User from '../models/User';
 export default class AuthController {
   static async signup(req, res) {
     try {
+      // check if email is already registered
       const user = await User.findOne({ email: req.body.email });
       if (user) {
         return res.status(400).json({
@@ -13,6 +15,15 @@ export default class AuthController {
           emailError: 'This email is already registered in our system',
         });
       }
+      // check if username already exists
+      const username = await User.findOne({ userName: req.body.userName });
+      if (username) {
+        return res.status(400).json({
+          status: 'error',
+          emailError: 'Oops, has picked that username already',
+        });
+      }
+      // save/register new user to database
       const newUser = new User(req.body);
       newUser.hashPassword = bcrypt.hashSync(req.body.password, 10);
       const savedUser = await newUser.save();
@@ -33,25 +44,22 @@ export default class AuthController {
 
   static async signin(req, res) {
     try {
-      let token;
       const user = await User.findOne({ email: req.body.email });
       if (!user) {
         return res.status(401).json({
           success: false,
           message: 'No user found! Signup to continue',
         });
-      } if (user) {
-        if (!user.comparePassword(req.body.password, user.hashPassword)) {
-          res.status(401).json({
-            success: false,
-            message: 'Authentication failed. Wrong password!',
-          });
-        } else {
-          token = await jwt.sign({
-            id: user.id, name: user.name, _id: user.id, email: user.email,
-          }, `${process.env.jwt_secret}`, { expiresIn: '2d' });
-        }
       }
+      if (!user.comparePassword(req.body.password, user.hashPassword)) {
+        return res.status(401).json({
+          success: false,
+          message: 'Authentication failed. Wrong password!',
+        });
+      }
+      const token = await jwt.sign({
+        id: user.id, name: user.userName, email: user.email,
+      }, `${process.env.jwt_secret}`, { expiresIn: '2d' });
       return res.status(200).json({
         success: true,
         data: {

@@ -1,24 +1,49 @@
 import Question from '../models/Question';
 
 export default class QuestionController {
-  // eslint-disable-next-line consistent-return
-  static getAllQuestions(req, res) {
+  static async getAllQuestions(req, res) {
     try {
-      Question.find({}, (err, questions) => {
-        if (err) {
-          res.send(err);
-        }
-        if (!Array.isArray(questions) || !questions.length) {
-          res.status(400).json({
-            msg: 'No questions found',
-          });
-        }
-        return res.status(200).json({
+      const questions = await Question.find({}).sort({ createdAt: 'desc' });
+
+      if (!Array.isArray(questions) || !questions.length) {
+        res.status(204).json({
           success: true,
-          data: questions,
+          message: 'No questions found',
         });
-      })
-        .sort({ date: 'desc' });
+      }
+      return res.status(200).json({
+        success: true,
+        data: questions,
+      });
+    } catch (error) {
+      return res.status(error.statusCode || 500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  }
+
+  static async postQuestion(req, res) {
+    try {
+      const {
+        title, company, companyLocation, description, jobRole, tags,
+      } = req.body;
+      const question = new Question({
+        title,
+        company,
+        postedBy: req.user.name,
+        companyLocation,
+        description,
+        jobRole,
+        tags,
+      });
+      const newQuestion = await question.save();
+      return res.status(201).json({
+        success: true,
+        data: {
+          newQuestion,
+        },
+      });
     } catch (error) {
       return res.status(error.statusCode || 500).json({
         success: false,

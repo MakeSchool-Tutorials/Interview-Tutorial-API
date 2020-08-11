@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 class ValidationMiddleware {
   static validateEmail(req, res, next) {
     const { email } = req.body;
+    // regex format to check if email is in its correct format
     const emailRegexFormat = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     try {
       if (emailRegexFormat.test(email)) {

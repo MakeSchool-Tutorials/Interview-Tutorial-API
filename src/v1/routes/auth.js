@@ -2,7 +2,6 @@ import { Router } from 'express';
 import { checkSchema } from 'express-validator';
 import AuthController from '../controllers/auth';
 import signUpSchema from '../middlewares/expressValidatorSchema/signUpSchema';
-import signInSchema from '../middlewares/expressValidatorSchema/signInSchema';
 import ValidateSchema from '../middlewares/expressValidatorSchema/validateSchema';
 import ValidationMiddleware from '../middlewares/validationMiddlewares';
 
@@ -19,8 +18,6 @@ AuthRouter.post(
 
 AuthRouter.post(
   '/signin',
-  checkSchema(signInSchema),
-  validateSchema.validateSignInSchema,
   AuthController.signin,
 );
 export default AuthRouter;
