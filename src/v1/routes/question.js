@@ -18,4 +18,11 @@ QuestionRouter.get(
   QuestionController.getAllQuestions,
 );
 
+QuestionRouter.put(
+  '/updateQuestion/:questionId',
+  ValidationMiddleware.validateToken,
+  ValidationMiddleware.signInRequired,
+  QuestionController.updateQuestion,
+);
+
 export default QuestionRouter;

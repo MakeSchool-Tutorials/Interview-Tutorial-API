@@ -1,3 +1,4 @@
+import { stringify } from 'flatted';
 import Question from '../models/Question';
 
 export default class QuestionController {
@@ -31,7 +32,7 @@ export default class QuestionController {
       const question = new Question({
         title,
         company,
-        postedBy: req.user.name,
+        postedBy: req.user.id,
         companyLocation,
         description,
         jobRole,
@@ -42,6 +43,26 @@ export default class QuestionController {
         success: true,
         data: {
           newQuestion,
+        },
+      });
+    } catch (error) {
+      return res.status(error.statusCode || 500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  }
+
+  static async updateQuestion(req, res) {
+    try {
+      // check to see if it was the user who posted the question
+      const updatedQuestion = Question.findOneAndUpdate(
+        { _id: req.params.questionId }, req.body, { new: true, useFindAndModify: false },
+);
+      return res.status(200).json({
+        success: true,
+        data: {
+          updatedQuestion,
         },
       });
     } catch (error) {

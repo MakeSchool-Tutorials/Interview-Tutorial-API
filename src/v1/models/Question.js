@@ -11,7 +11,6 @@ const QuestionSchema = new Schema({
   },
   postedBy: {
     type: String,
-    ref: 'user',
     required: true,
   },
   companyLocation: {
@@ -26,15 +25,11 @@ const QuestionSchema = new Schema({
     required: true,
   },
   tags: [String],
-  createdAt: {
-    type: Date,
-    default: Date.now,
+},
+{
+  timestamps: {
+    createdAt: 'created_at',
   },
-  updatedAt: {
-    type: Date,
-    default: Date.now,
-  },
-
 });
 
 module.exports = mongoose.model('question', QuestionSchema);
