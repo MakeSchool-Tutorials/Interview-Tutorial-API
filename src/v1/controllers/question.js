@@ -57,15 +57,21 @@ export default class QuestionController {
       // check to see if it was the user who posted the question
       const { userId } = req.params;
       const question = await Question.findOne({ postedBy: userId });
+      if (!question) {
+        return res.status(400).json({
+          status: 'error',
+          messsage: 'You haven\'t posted any questions',
+        });
+      }
 
-      if (!question.postedBy === userId) {
+      if ((!question.postedBy === userId)) {
         return res.status(400).json({
           status: 'error',
           messsage: 'Oops, you cannot edit a question you did not post',
         });
       }
-      const updatedQuestion = Question.findOneAndUpdate(
-        { _id: req.params.questionId }, req.body, { new: true, useFindAndModify: false },
+      const updatedQuestion = await Question.findByIdAndUpdate(
+        req.params.questionId, req.body, { new: true, useFindAndModify: false },
       );
       return res.status(200).json({
         success: true,

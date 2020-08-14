@@ -19,7 +19,7 @@ QuestionRouter.get(
 );
 
 QuestionRouter.put(
-  '/updateQuestion/:questionId',
+  '/updateQuestion/:userId/:questionId',
   ValidationMiddleware.validateToken,
   ValidationMiddleware.signInRequired,
   QuestionController.updateQuestion,
