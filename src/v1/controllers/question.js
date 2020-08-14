@@ -86,4 +86,56 @@ export default class QuestionController {
       });
     }
   }
+
+  static async deleteQuestion(req, res) {
+    try {
+      const { userId } = req.params;
+      const question = await Question.findOne({ postedBy: userId });
+      if (!question) {
+        return res.status(400).json({
+          status: 'error',
+          messsage: 'You haven\'t posted any questions',
+        });
+      }
+
+      if ((!question.postedBy === userId)) {
+        return res.status(400).json({
+          status: 'error',
+          messsage: 'Oops, you cannot delete a question you did not post',
+        });
+      }
+
+      await Question.remove({ _id: req.params.questionId });
+      return res.status(200).json({
+        success: true,
+        message: 'Question successfully deleted',
+      });
+    } catch (error) {
+      return res.status(error.statusCode || 500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  }
+
+  static async searchQuestions(req, res) {
+    try {
+      const searchResult = await Question.find({ title: { $regex: req.query.title, $options: 'i' } }).sort({ created_at: 'desc' });
+      if (!searchResult) {
+        return res.status(200).json({
+          success: true,
+          message: 'Sorry, there were no questions found that match your request',
+        });
+      }
+      return res.status(200).json({
+        success: true,
+        data: searchResult,
+      });
+    } catch (error) {
+      return res.status(error.statusCode || 500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  }
 }

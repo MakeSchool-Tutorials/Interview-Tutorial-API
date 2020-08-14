@@ -25,4 +25,16 @@ QuestionRouter.put(
   QuestionController.updateQuestion,
 );
 
+QuestionRouter.delete(
+  '/deleteQuestion/:userId/:questionId',
+  ValidationMiddleware.validateToken,
+  ValidationMiddleware.signInRequired,
+  QuestionController.deleteQuestion,
+);
+
+QuestionRouter.get(
+  '/search/',
+  QuestionController.searchQuestions,
+);
+
 export default QuestionRouter;
