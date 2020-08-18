@@ -10,7 +10,7 @@ config();
 const app = express();
 
 // setup database connection
-mongoose.connect(process.env.TEST_DB_URI, {
+mongoose.connect(process.env.TEST_DB_URI_ATLAS, {
   useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false,
 });
 
