@@ -6,7 +6,8 @@ import bodyparser from 'body-parser';
 import mongoose from 'mongoose';
 import routes from './v1/routes/index';
 
-import '@babel/polyfill';
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 config();
 const app = express();
