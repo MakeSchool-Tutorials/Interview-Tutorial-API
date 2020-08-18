@@ -6,7 +6,7 @@ import bodyparser from 'body-parser';
 import mongoose from 'mongoose';
 import routes from './v1/routes/index';
 
-config({ path: '.env' });
+config();
 const app = express();
 
 // setup database connection
