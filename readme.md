@@ -25,7 +25,7 @@
 
 ```shell
 git clone https://github.com/MakeSchool-Tutorials/Interview-Tutorial-API.git
-cd stackoverflow-clone
+cd Interview-Tutorial-API
 npm install
 npm run start-dev # prints Listening on port $portnumber
 ```
