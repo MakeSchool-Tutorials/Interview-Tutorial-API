@@ -1,12 +1,13 @@
 import express from 'express';
 import debug from 'debug';
 import morgan from 'morgan';
-import { config } from 'dotenv';
+// import { config } from 'dotenv';
 import bodyparser from 'body-parser';
 import mongoose from 'mongoose';
 import routes from './v1/routes/index';
 
-config();
+require('dotenv').config();
+
 const app = express();
 
 // setup database connection
