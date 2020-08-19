@@ -30,6 +30,7 @@ app.use('/api/v1/', routes);
 // set up route for swagger documentation
 // app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
+// route to catch all requests on endpoints not defined
 app.use('*', (req, res) => {
   res.status(404).json({
     success: false,
