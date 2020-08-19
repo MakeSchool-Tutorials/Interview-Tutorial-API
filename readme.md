@@ -46,4 +46,25 @@ The project enforces eslint airbnb code style.
 
 ## Routes
 
-TBD
+### auth
+
+| Route | Method | Access | Description |
+| ----------- | ----------- | ----------- | ----------- |
+| <https://obscure-tundra-14794.herokuapp.com/api/v1/auth/signup> | POST | Public |sign up a new user |
+| <https://obscure-tundra-14794.herokuapp.com/api/v1/auth/signup> | POST | Public | sign in as a user |
+
+### questions
+
+| Route | Method | Access | Description |
+| ----------- | ----------- | ----------- | ----------- |
+| <https://obscure-tundra-14794.herokuapp.com/api/v1/question/getAllQuestions> |GET| Private | Gets all questions |
+| <https://obscure-tundra-14794.herokuapp.com/api/v1/question/postQuestion> | POST | Private | ask a question as a user already signed in |
+| <https://obscure-tundra-14794.herokuapp.com/api/v1/question/updateQuestion/{userId}/{questionId>} | PUT | Private | edit your question as a user already signed in |
+| <https://obscure-tundra-14794.herokuapp.com/api/v1/question/deleteQuestion/{userId}/{questionId>} | DELETE | Private | delete your question as a user already signed in |
+| <https://obscure-tundra-14794.herokuapp.com/api/v1/question/search?title=searchquery> | GET | Public | search for a question |
+
+### user
+
+| Route | Method | Access | Description |
+| ----------- | ----------- | ----------- | ----------- |
+| <https://obscure-tundra-14794.herokuapp.com/api/v1/user/getAllUsers> | GET | Private | get all users registeres |

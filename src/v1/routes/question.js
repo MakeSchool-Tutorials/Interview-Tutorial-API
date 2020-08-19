@@ -33,7 +33,7 @@ QuestionRouter.delete(
 );
 
 QuestionRouter.get(
-  '/search/',
+  '/search',
   QuestionController.searchQuestions,
 );
 
