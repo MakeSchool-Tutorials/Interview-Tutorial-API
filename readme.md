@@ -55,21 +55,21 @@ The project enforces eslint airbnb code style.
 
 | Route | Method | Access | Description |
 | ----------- | ----------- | ----------- | ----------- |
-| <https://questqueues.herokuapp.com/api/v1/auth/signup> | POST | Public |sign up a new user |
-| <https://questqueues.herokuapp.com/api/v1/auth/signup> | POST | Public | sign in as a user |
+| <https://queststack.herokuapp.com/api/v1/auth/signup> | POST | Public |sign up a new user |
+| <https://queststack.herokuapp.com/api/v1/auth/signup> | POST | Public | sign in as a user |
 
 ### questions
 
 | Route | Method | Access | Description |
 | ----------- | ----------- | ----------- | ----------- |
-| <https://questqueues.herokuapp.com/api/v1/question/getAllQuestions> |GET| Private | Gets all questions |
-| <https://questqueues.herokuapp.com/api/v1/question/postQuestion> | POST | Private | ask a question as a user already signed in |
-| <https://questqueues.herokuapp.com/api/v1/question/updateQuestion/{userId}/{questionId>} | PUT | Private | edit your question as a user already signed in |
-| <https://questqueues.herokuapp.com/api/v1/question/deleteQuestion/{userId}/{questionId>} | DELETE | Private | delete your question as a user already signed in |
-| <https://questqueues.herokuapp.com/api/v1/question/search?title=searchquery> | GET | Public | search for a question |
+| <https://queststack.herokuapp.com/api/v1/question/getAllQuestions> |GET| Private | Gets all questions |
+| <https://queststack.herokuapp.com/api/v1/question/postQuestion> | POST | Private | ask a question as a user already signed in |
+| <https://queststack.herokuapp.com/api/v1/question/updateQuestion/{userId}/{questionId>} | PUT | Private | edit your question as a user already signed in |
+| <https://queststack.herokuapp.com/api/v1/question/deleteQuestion/{userId}/{questionId>} | DELETE | Private | delete your question as a user already signed in |
+| <https://queststack.herokuapp.com/api/v1/question/search?title=searchquery> | GET | Public | search for a question |
 
 ### user
 
 | Route | Method | Access | Description |
 | ----------- | ----------- | ----------- | ----------- |
-| <https://questqueues.herokuapp.com/api/v1/user/getAllUsers> | GET | Private | get all users registeres |
+| <https://queststack.herokuapp.com/api/v1/user/getAllUsers> | GET | Private | get all users registeres |
